@@ -1,0 +1,7 @@
+.ipynb_checkpoints/
+Untitled.ipynb
+__pycache__/
+app_old.py
+interactive_app.py
+state_app.py
+vagrant/.vagrant/
