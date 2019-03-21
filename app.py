@@ -1,5 +1,5 @@
 """
-Dash App - Interactive SOG Tool data
+Dash App - Interactive data table
 
 """
 # Generic Imports
@@ -13,29 +13,32 @@ import pandas as pd
 # Custom Imports
 import parse_data
 
+
+# CONSTANTS
+TITLE = 'SOG Tools'
+DATA_FILE = 'data.txt'
+
+
 ## Uncomment the following to use external stylesheets instead of the ones
 ## included in this repository
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 # app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 app = dash.Dash(__name__)
 
 # Generate pandas dataframe from data.txt
-dfs = parse_data.parse_data()
+dfs = parse_data.parse_data(filename=DATA_FILE, verbose=False)
 
 
 # FUNCTIONS
 def generate_table(dataframe, max_rows=10):
     """
     Generate a table from a pandas dataframe.
-
     This code borrowed from dash tutorial.
 
     """
     return html.Table(
         # Header
         [html.Tr([html.Th(col) for col in dataframe.columns])] +
-
         # Body
         [html.Tr([
             html.Td(dataframe.iloc[i][col]) for col in dataframe.columns
@@ -43,21 +46,11 @@ def generate_table(dataframe, max_rows=10):
     )
 
 
-def get_data():
-    dfs = parse_data.parse_data()
-    return dfs
-
-
 # CONTENT
 ## HEADER
 header_children = [
-    html.H1(children='SOG Tools'),
+    html.H1(children=TITLE),
     html.Hr(),
-    dcc.Interval(
-        id='interval-component',
-        interval=1 * 1000, # in milliseconds
-        n_intervals=0,
-    ),
 ]
 
 ## FILTERED DATA
@@ -69,7 +62,7 @@ filtered_children = [
             dcc.Dropdown(
                 id='section-dropdown',
                 options=[{'label': k, 'value': k} for k in dfs.keys()],
-                value='TOOLS',
+                value=list(dfs.keys())[0],
             ),
         ], className="three columns"),
         html.Div([
