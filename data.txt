@@ -1,0 +1,25 @@
+<HOSTS>
+    hostname, host type, os, note
+    # ---------------------------
+    dummy1, hw1, centos, 
+    dummy2, hw1, windows,
+    dummy3, hw2, linux,
+</HOSTS>
+
+<HW>
+    host type, description, networks
+    # ------------------------------
+    hw1, expensive server, 10G
+    hw2, cheap thinclient, 1G
+
+</HW>
+
+<TOOLS>
+    prod|qa|dev, tool name, host, virtualization, notes
+    # -------------------------------------------------
+    prod, dummy display, dummy3, metal,
+    qa, dummy display, dummy1, vagrant,
+    dev, dummy display, dummy1, vagrant,
+    prod, email, dummy2, metal
+    prod, inventory db, dummy1, metal
+</TOOLS>
